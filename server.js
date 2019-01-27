@@ -26,7 +26,11 @@ app.set('views', 'views');
 
 // route set up
 app.get('/', (req, resp) => {
-  resp.sendFile(__dirname + '/index.html');
+  Contact.findAll({
+    attributes: ['name', 'email', 'message'],
+  }).then(contacts => {
+    resp.render('home/index', { contacts });
+  });
 });
 
 app.get('/about', (req, resp) => {
@@ -49,7 +53,7 @@ app.post('/contact', function(req, resp) {
 
   contact.save().then(() => {
     console.log(`${contact.email} is created successfully..`);
-    return resp.redirect('/contact');
+    return resp.redirect('/');
   });
 });
 

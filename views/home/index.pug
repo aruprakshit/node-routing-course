@@ -1,1 +1,16 @@
 extends ../application/layout.pug
+
+block content
+  section.section
+    table.table.is-fullwidth.is-bordered.is-striped
+      thead
+        tr
+          th Name
+          th Email
+          th Subject
+      tbody
+        each contact in contacts
+          tr
+            td= contact.name
+            td= contact.email
+            td= contact.message
