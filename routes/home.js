@@ -1,16 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const db = require('../db');
+const { index } = require('../controllers/home');
 
-const { Contact } = db;
-
-router.get('/', (req, resp) => {
-  Contact.findAll({
-    attributes: ['name', 'email', 'message'],
-  }).then(contacts => {
-    resp.render('home/index', { contacts });
-  });
-});
+router.route('/').get('/', index);
 
 module.exports = router;

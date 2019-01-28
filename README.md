@@ -1,2 +1,3 @@
 - Implement Contact CRUD app
 - Implement flash messages https://stackoverflow.com/questions/23160743/how-to-send-flash-messages-in-express-4-0
+- Implement authentication https://dev.to/jcolborndropdeadgames/user-authentication-with-expressjs-44od

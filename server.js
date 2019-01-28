@@ -3,8 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('./db');
 
-var contacts = require('./routes/contacts');
-var home = require('./routes/home');
+var routes = require('./routes');
 
 const app = express();
 
@@ -27,8 +26,7 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 // route set up
-app.use('/contacts', contacts);
-app.use('/', home);
+app.use(...routes);
 
 // start the server
 
