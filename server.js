@@ -2,7 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('./db');
-const { Contact } = db;
+
+var contacts = require('./routes/contacts');
+var home = require('./routes/home');
 
 const app = express();
 
@@ -25,37 +27,8 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 // route set up
-app.get('/', (req, resp) => {
-  Contact.findAll({
-    attributes: ['name', 'email', 'message'],
-  }).then(contacts => {
-    resp.render('home/index', { contacts });
-  });
-});
-
-app.get('/about', (req, resp) => {
-  resp.send('I am the about page.');
-});
-
-app.get('/contact', (req, resp) => {
-  resp.render('contacts/index');
-});
-
-app.post('/contact', function(req, resp) {
-  const { name, email, message } = req.body;
-  const contact = Contact.build({
-    name,
-    email,
-    message,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
-  contact.save().then(() => {
-    console.log(`${contact.email} is created successfully..`);
-    return resp.redirect('/');
-  });
-});
+app.use('/contacts', contacts);
+app.use('/', home);
 
 // start the server
 
